@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= title %> </title>
+    <script src="https://kit.fontawesome.com/c7caeefe18.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/home_style.css">
+</head>
+<body>
+    <main>
+        <h1>TODO App</h1>
+        <form id = "todo-input" action="/add-todo-event" method="post">
+            <input id = "disc-input" class="input-box" type="text" name = 'discription' placeholder="What you want to do ?" required>
+            <div class = 'drop-down'>
+                <select class="input-box" name="type" id="" >
+                    <option value="category" selected hidden >Catagory </option>
+                    <% for ( let i of type) { %>
+                        <option  value= <%= i %>><%= i %></option>
+                    <%}%>
+                </select>
+                <input class="input-box" name = "date" type="date" required >
+            </div>
+            <div id = "button-container">
+                <button class="buttons" id = "add-button" type="submit"><i class="fa-solid fa-plus"></i>&nbsp; Add </button>
+                <button class="buttons" type="submit" form="list-box"><i class="fa-solid fa-trash"></i> &nbsp; Delete </button>
+            </div>
+            
+        </form>
+
+        <form id = "list-box" action="/delete" method="post">
+            <% for (let i of todos) {%> 
+                    <div id = <%= i._id %> class = "todo-event">
+                        <div class = "disc-and-type">
+                            <input id = <%= i._id %> value = <%= i._id %> name = "checked" type="checkbox">
+                            <div class="discription"> <%= i.disc %></div>
+                            <span class = "todo-type <%= i.type %>" ><%= i.type %></span>
+                        </div>
+                        <div class = "date">
+                            <span><i class="fa-regular fa-calendar-days"></i> &nbsp; <%= i.date %></span>
+                        </div>
+                       
+                        <!-- <p><%= i._id%></p> -->
+                    </div>
+            <%}%>
+            <% if(todos.length == 0){%>
+                <div id = "todo-empty">
+                    <h2>Nothing Todo <i class="fa-brands fa-pagelines"></i></h2>
+                </div>         
+            <%}%>
+            
+        </form>
+
+
+    </main>
+
+    <script type="text/javascript" src="/js/home.js"></script>
+    
+</body>
+</html>
